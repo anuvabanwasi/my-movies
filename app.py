@@ -1,6 +1,4 @@
 from flask import Flask
-import omdbapi
-from omdbapi.movie_search import GetMovie
 from flask import Flask, flash, jsonify, redirect, render_template, request, session
 import requests
 from flask_paginate import Pagination, get_page_args
