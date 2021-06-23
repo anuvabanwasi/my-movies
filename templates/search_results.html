@@ -1,0 +1,119 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Select Years</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick = "close_modal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form name = "filter_form" id = "filter_form" action = "/search_results.html" method="POST">
+        <div class="modal-body">
+          <p>Min: <input name = "start_year" type="text" class="input-sm" id="start_year"/></p>
+          <p>Max: <input name = "end_year" type="text" class="input-sm" id="end_year"/></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick = "close_modal()">Close</button>
+          <input type="submit" value = "Save Changes" name = "submit_years" id = "submit_years" class="btn btn-primary"
+            onclick = "get_year_details()">
+          <input name = "filter" type="hidden" class="input-sm" id="filter" value="false"/>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+
+  <form action = "/search_results.html" method="POST">
+    <h3> <input name="movie" placeholder = "{{ title }}">
+    <input type="submit" value = "Go"> </h3>
+  </form>
+
+    <div class="table-responsive">
+      <table class="table table-sm table-hover table-borderless mb-0">
+          <thead id = "header" class="thead-dark">
+              <tr>
+                  <th>#</th>
+                  <th>Title</th>
+                  <th>Release date
+                    {% if filter %}
+                      <input id="filter-demo" name="filter-demo" type="checkbox" checked></input>
+                    {% else %}
+                      <input id="filter-demo" name="filter-demo" type="checkbox"></input>
+                    {% endif %}
+                  <label for="filter-demo">Filter</label>
+                </th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for movie in movieList %}
+              <tr>
+                  <p> <th scope="row">{{ loop.index + offset }}</th>
+                  <td><a id = "movie_title" onclick = "get_movie_details('{{ movie.obj_imdbID }}')"> {{ movie.obj_title }}</a></td>
+                  <td>{{ movie.obj_year }}</td>
+
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+
+      {{ pagination.info }}
+      {{ pagination.links }}
+
+      <form id = "pageNums" name = "pageNums" action = "/search_results.html" method = "POST">
+        <h4>Number of results per page: <input type = "text" name = "num_per_page" id="num_per_page" />
+        <input type="submit" value = "Show More"> </h4>
+     </form>
+
+  </div>
+</div>
+
+  <form id = "myForm" name = "myForm" action = "/movie_details.html" method = "POST">
+      <br><p><input type = "hidden" name = "title" id="title" /></p>
+  </form>
+
+
+  <script>
+    function get_movie_details(title) {
+      console.log("Reached javascript");
+      document.getElementById("title").value = title;
+      console.log("After javascript");
+      document.getElementById("myForm").submit();
+    }
+
+    function get_year_details() {
+      console.log("Reached javascript");
+      document.getElementById("filter").value = 'true';
+      document.getElementById("filter_form").submit();
+
+      // alert(document.getElementById("filter").value);
+    }
+
+    function close_modal() {
+      document.getElementById("filter-demo").checked = false;
+    }
+
+    $('input[type="checkbox"]').on('change', function(e){
+      if(e.target.checked){
+        $('#exampleModal').modal();
+      }
+      else{
+        document.getElementById("filter").value='false';
+        document.getElementById("filter_form").submit();
+      }
+
+    });
+
+  </script>
+
+
+
+{% endblock %}

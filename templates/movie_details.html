@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <br> <h2><a href="/">Home</a></h2>
+  <h2><a href="/search_results.html">Return to results</a></h2>
+
+  <h2><img src = {{poster}} alt="">
+  <br><br>Title: {{name}}
+  <br>Release date: {{release_date}}
+  <br>Runtime: {{runtime}}
+  <br>Genre: {{genre}}
+  <br>Director: {{director}}
+  </h2>
+
+  <br>
+{% endblock %}
