@@ -111,8 +111,8 @@ def get_results_for_page():
 
     for i in range(OMDBPage, OMDBPage + numCalls):
         pageStr = str(i)
-        # url = "https://www.omdbapi.com?apikey=" + api_key + "&s=" + title + "&page=" + pageStr + "&type=movie"
-        url = "https://www.omdbapi.com/?apikey=b26a4c28&s=Hobbit"
+        url = "https://www.omdbapi.com?apikey=" + api_key + "&s=" + title + "&page=" + pageStr + "&type=movie"
+        #url = "https://www.omdbapi.com/?apikey=b26a4c28&s=Hobbit"
         print("response %s" % requests.get(url))
         movies = requests.get(url).json().get("Search")
         print("url is: ")
@@ -162,8 +162,8 @@ def get_total_records():
 
     print("6")
 
-    #url = "http://www.omdbapi.com?apikey=" + api_key + "&s=" + title + "&type=movie"
-    url = "https://www.omdbapi.com/?apikey=b26a4c28&s=Hobbit"
+    url = "http://www.omdbapi.com?apikey=" + api_key + "&s=" + title + "&type=movie"
+    #url = "https://www.omdbapi.com/?apikey=b26a4c28&s=Hobbit"
     print("7")
     movies = requests.get(url).json().get("Search")
     print("8")
