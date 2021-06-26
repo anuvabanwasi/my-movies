@@ -64,6 +64,7 @@ def search_results():
                 filter = True
             else:
                 filter = False
+        return render_template("layout.html")
 
     if filter == True:
         movieList = get_results_for_page()
