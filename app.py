@@ -160,8 +160,11 @@ def get_total_records():
     print("6")
 
     url = "http://www.omdbapi.com?apikey=" + api_key + "&s=" + title + "&type=movie"
+    print("7")
     movies = requests.get(url).json().get("Search")
+    print("8")
     total_results = requests.get(url).json().get("totalResults")
+    print("9")
 
     print("total results in get_total_records is %s" % total_results)
     print("url in get_total_records is %s" % url)
@@ -169,6 +172,7 @@ def get_total_records():
     if total_results == None:
         total_results = 0
     else:
+        print("10")
         total_results = int(total_results)
 
     return total_results
