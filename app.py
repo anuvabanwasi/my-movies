@@ -64,7 +64,7 @@ def search_results():
                 filter = True
             else:
                 filter = False
-        return render_template("layout.html")
+        # return render_template("layout.html")
 
     if filter == True:
         movieList = get_results_for_page()
@@ -111,7 +111,7 @@ def get_results_for_page():
 
     for i in range(OMDBPage, OMDBPage + numCalls):
         pageStr = str(i)
-        url = "http://www.omdbapi.com?apikey=" + api_key + "&s=" + title + "&page=" + pageStr + "&type=movie"
+        url = "https://www.omdbapi.com?apikey=" + api_key + "&s=" + title + "&page=" + pageStr + "&type=movie"
         movies = requests.get(url).json().get("Search")
         print("url is: ")
         print(url)
