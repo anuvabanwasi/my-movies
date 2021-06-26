@@ -38,14 +38,15 @@ def search_results():
     global start_year
     global end_year
 
-    print("Inside search_results")
+    print("1. Inside search_results")
 
     page = int(request.args.get("page", 1))
     offset = (page - 1) * per_page
 
-    print("\n\nTHE PAGE IS %s" % page)
+    print("\n\n 2. THE PAGE IS %s" % page)
 
     if request.method == "POST":
+        print("3. Inside POST")
         if "movie" in request.form:
             title = request.form["movie"]
             total = get_total_records()
@@ -68,6 +69,7 @@ def search_results():
         movieList = get_results_for_page()
         movieList = get_filtered_results_for_page(movieList, start_year, end_year)
     else:
+        print("4")
         movieList = get_results_for_page()
 
     print("total inside search_results is %s" % total)
@@ -89,6 +91,7 @@ def get_results_for_page():
     global title
     global page
 
+    print("5")
     movieList = []
 
     total_results = get_total_records()
@@ -153,6 +156,8 @@ def get_total_records():
     global per_page
     global api_key
     global title
+
+    print("6")
 
     url = "http://www.omdbapi.com?apikey=" + api_key + "&s=" + title + "&type=movie"
     movies = requests.get(url).json().get("Search")
